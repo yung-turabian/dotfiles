@@ -6,6 +6,9 @@
 
 - link:
     ~/.bashrc: bashrc
+    ~/.config/:
+      glob: true
+      path: config/*
 
 
 - shell:
