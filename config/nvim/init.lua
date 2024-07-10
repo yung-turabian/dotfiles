@@ -17,6 +17,8 @@ vim.opt.signcolumn = 'yes'
 vim.opt.undodir = "."
 vim.opt.undofile = true
 
+vim.loader.enable()
+
 -- Space as leader key
 vim.g.mapleader = ' '
 
@@ -67,6 +69,7 @@ lazy.opts = {}
 -- https://dev.to/vonheikemen/lazynvim-plugin-configuration-3opi
 lazy.setup({
   {'yung-turabian/woke-moralist'},
+	{'sainnhe/sonokai'},
   {'folke/which-key.nvim'},
 	{dir = '~/test'},
   {'nvim-lualine/lualine.nvim'},
@@ -110,7 +113,11 @@ lazy.setup({
 -- ==                         PLUGIN CONFIGURATION                         == --
 -- ========================================================================== --
 
-vim.cmd.colorscheme('retrobox')
+vim.g.sonokai_style = 'maia'
+vim.g.sonokai_better_performance = 1
+
+vim.cmd.colorscheme('sonokai')
+
 
 vim.g.netrw_banner = 0
 vim.g.netrw_winsize = 30
