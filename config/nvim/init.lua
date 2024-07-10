@@ -7,12 +7,15 @@ vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.hlsearch = false
 vim.opt.tabstop = 2
-vim.opt.shiftwidth = 2
+vim.opt.shiftwidth = 4
 vim.opt.showmode = false
 vim.opt.termguicolors = true
 vim.opt.updatetime = 250
 vim.opt.timeoutlen = 300
 vim.opt.signcolumn = 'yes'
+
+vim.opt.undodir = "."
+vim.opt.undofile = true
 
 -- Space as leader key
 vim.g.mapleader = ' '
