@@ -70,7 +70,6 @@ lazy.opts = {}
 lazy.setup({
   {'yung-turabian/woke-moralist'},
 	{'sainnhe/sonokai'},
-  {'folke/which-key.nvim'},
 	{dir = '~/test'},
   {'nvim-lualine/lualine.nvim'},
   {'nvim-lua/plenary.nvim', build = false},
@@ -85,9 +84,6 @@ lazy.setup({
         'nvim-treesitter/nvim-treesitter', -- Mandatory
         'nvim-tree/nvim-web-devicons', -- Optional but recommended
     },
-    config = function()
-        require('render-markdown').setup({})
-    end,
 	},
 	{'dimfeld/section-wordcount.nvim',
 		config = function()
@@ -126,6 +122,20 @@ vim.g.netrw_winsize = 30
 vim.keymap.set('n', '<leader>e', '<cmd>Lexplore<cr>', {desc = 'Toggle file explorer'})
 vim.keymap.set('n', '<leader>E', '<cmd>Lexplore %:p:h<cr>', {desc = 'Open file explorer in current file'})
 
+require('render-markdown').setup({
+		heading = {
+				enabled = true,
+				sign = true,
+				icons = { '', 'II.', 'III.', 'IV.', 'V.', 'VI.' },
+				signs = { '§' },
+		},
+		bullet = {
+				enabled = true,
+
+				icons = { '+', '▶', '±'},
+		},
+})
+
 -- See :help lualine.txt
 require('lualine').setup({
   options = {
@@ -140,13 +150,6 @@ require('nvim-treesitter.configs').setup({
   highlight = { enable = true, },
   auto_install = true,
   ensure_installed = {'lua', 'vim', 'vimdoc', 'json'},
-})
-
--- See :help which-key.nvim-which-key-configuration
-require('which-key').setup({})
-require('which-key').register({
-  ['<leader>f'] = {name = 'Fuzzy Find', _ = 'which_key_ignore'},
-  ['<leader>b'] = {name = 'Buffer', _ = 'which_key_ignore'},
 })
 
 -- See :help MiniAi-textobject-builtin
