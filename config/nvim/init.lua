@@ -70,6 +70,7 @@ lazy.opts = {}
 lazy.setup({
   {'yung-turabian/woke-moralist'},
 	{'sainnhe/sonokai'},
+	{'fugalh/desert.vim'},
 	{dir = '~/test'},
   {'nvim-lualine/lualine.nvim'},
   {'nvim-lua/plenary.nvim', build = false},
@@ -109,10 +110,7 @@ lazy.setup({
 -- ==                         PLUGIN CONFIGURATION                         == --
 -- ========================================================================== --
 
-vim.g.sonokai_style = 'maia'
-vim.g.sonokai_better_performance = 1
-
-vim.cmd.colorscheme('sonokai')
+vim.cmd.colorscheme('retrobox')
 
 
 vim.g.netrw_banner = 0
