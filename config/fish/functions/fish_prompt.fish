@@ -12,7 +12,7 @@ function fish_prompt
 				set symbol (set_color 8c7e73)"$symbol "(set_color normal)
     end
 		
-		string join '' -- (set_color dadc56) \
+		string join '' -- \n (set_color dadc56) \
 				(prompt_pwd) (set_color normal) \
 				" $(fish_svn_prompt)" (set_color normal) \
 				\n $symbol

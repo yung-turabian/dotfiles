@@ -6,6 +6,8 @@ if status is-interactive
     alias quit="exit"
     alias q="exit"
 
+		alias la="ls -a"
+
     set -gx EDITOR nvim # enviro variable -gx
 		set -gx PAGER less
 
