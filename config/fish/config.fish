@@ -17,12 +17,26 @@ if status is-interactive
 		# function fish_right_prompt -d "Write out the right prompt"
 		#  printf '%s@%s' $USER $hostname
 		#end
+		
+		# Created by `pipx` on 2024-04-18 01:47:00
+		set PATH $PATH /home/henry/.local/bin
+
+		set GOPATH $GOPATH /home/henry/go
+		set PATH $PATH "$GOPATH/bin"
+
+		alias valgrind_full='valgrind --leak-check=full --show-leak-kinds=all'
 end
 
+# Setup SSH-AGENT
+fish_ssh_agent
 
+zoxide init fish | source
 
-# Created by `pipx` on 2024-06-26 22:08:01
-set PATH $PATH /Users/hew_/.local/bin
+alias fman="complete -C | fzf | xargs man"
+
+alias motherboard="sudo dmidecode -t 2"
+
+alias emsdk_setup ". ~/emsdk/emsdk_env.fish"
 
 # Need Bass, provided by fisherman
 #bass source /usr/local/opt/chruby/share/chruby/chruby.sh --no-use ';' chruby ruby-3.1.3
