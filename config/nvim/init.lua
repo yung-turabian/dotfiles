@@ -14,8 +14,10 @@ vim.opt.updatetime = 250
 vim.opt.timeoutlen = 300
 vim.opt.signcolumn = 'yes'
 
-vim.opt.undodir = "."
 vim.opt.undofile = true
+-- Set crotab -e >> 0 0 * * * find ~/.nvim/undodir -type f -mtime +15 -delete
+vim.opt.undodir = vim.fn.expand("~/.nvim/undotrunk")
+
 
 vim.loader.enable()
 
@@ -103,13 +105,28 @@ lazy.setup({
 	{
 			dir = "~/Projects/LUA/highlight-nvim",
 	},
+	{
+			'sainnhe/everforest',
+			lazy = false,
+			priority = 1000,
+			config = function()
+
+						vim.g.everforest_enable_italic = true
+						vim.g.everforest_better_performance = 1
+						vim.cmd.colorscheme('everforest')
+
+						require'lualine'.setup {
+										options = {
+										theme = 'everforest'
+								}
+						}	
+		  end
+	},
 })
 
 -- ========================================================================== --
 -- ==                         PLUGIN CONFIGURATION                         == --
 -- ========================================================================== --
-
-vim.cmd.colorscheme('retrobox')
 
 
 vim.g.netrw_banner = 0
