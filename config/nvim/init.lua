@@ -28,6 +28,22 @@ vim.keymap.set({'n', 'x', 'o'}, 'gp', '"+p', {desc = 'Paste clipboard content'})
 
 vim.keymap.set('n', ';', ':', { noremap = true })
 
+local default_path = vim.fn.expand("~/")
+
+if vim.g.neovide then
+		vim.g.neovide_hide_mouse_when_typing = false
+
+		vim.g.neovide_theme = 'auto'
+		vim.g.neovide_refresh_rate = 60
+		vim.g.neovide_confirm_quit = true
+
+		vim.g.neovide_remember_window_size = true
+		vim.g.neovide_cursor_animation_length = 0
+		vim.g.neovide_scroll_animation_length = 0
+
+		vim.api.nvim_set_current_dir(default_path)
+end
+
 -- ========================================================================== --
 -- ==                               PLUGINS                                == --
 -- ========================================================================== --
@@ -69,8 +85,6 @@ lazy.opts = {}
 -- https://dev.to/vonheikemen/lazynvim-plugin-configuration-3opi
 lazy.setup({
   {'yung-turabian/woke-moralist'},
-	{'sainnhe/sonokai'},
-	{'fugalh/desert.vim'},
 	{dir = '~/test'},
   {'nvim-lualine/lualine.nvim'},
   {'nvim-lua/plenary.nvim', build = false},
@@ -78,30 +92,12 @@ lazy.setup({
   {'nvim-telescope/telescope.nvim', branch = '0.1.x', build = false},
   {'natecraddock/telescope-zf-native.nvim', build = false},
   {'echasnovski/mini.nvim', branch = 'stable'},
-	{
-    'MeanderingProgrammer/markdown.nvim',
+	{'MeanderingProgrammer/markdown.nvim',
     name = 'render-markdown', -- Only needed if you have another plugin named markdown.nvim
     dependencies = {
         'nvim-treesitter/nvim-treesitter', -- Mandatory
         'nvim-tree/nvim-web-devicons', -- Optional but recommended
     },
-	},
-	{'dimfeld/section-wordcount.nvim',
-		config = function()
-			require('section-wordcount').setup{
-				highlight = "String",
-				virt_text_pos = "eol",
-			}
-
-
-			vim.api.nvim_exec([[
-				augroup SectionWordcount
-					autocmd!
-					autocmd FileType markdown lua require('section-wordcount').wordcounter{ header_char = '##' }
-					autocmd FileType asciidoc lua require('section-wordcount').wordcounter{ header_char = '=' }
-				augroup END
-			]], false)
-		end,
 	},
 	{'rktjmp/lush.nvim'},
 })
@@ -124,7 +120,7 @@ require('render-markdown').setup({
 		heading = {
 				enabled = true,
 				sign = true,
-				icons = { '', 'II.', 'III.', 'IV.', 'V.', 'VI.' },
+				icons = { '', '', '', '', '', '' },
 				signs = { '§' },
 		},
 		bullet = {
