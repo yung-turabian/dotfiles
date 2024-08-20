@@ -23,14 +23,13 @@ if status is-interactive
 
 		set GOPATH $GOPATH /home/henry/go
 		set PATH $PATH "$GOPATH/bin"
+		set PATH $PATH "/Users/hew_/.local/bin"
 
 		alias valgrind_full='valgrind --leak-check=full --show-leak-kinds=all'
 end
 
 # Setup SSH-AGENT
 fish_ssh_agent
-
-zoxide init fish | source
 
 alias fman="complete -C | fzf | xargs man"
 

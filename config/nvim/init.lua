@@ -63,24 +63,6 @@ local function get_window_width()
     print("Window width in cursor blocks: " .. width)
 end
 
--- Define the function to get SVN revision
-function get_svn_info()
-  -- Retrieve the SVN info
-  local handle_rev = io.popen('svn info --show-item revision 2>/dev/null')
-  local revision = handle_rev:read('*a')
-  handle_rev:close()
-
-  local handle_status = io.popen('svn status 2>/dev/null')
-  local status = handle_status:read('*a')
-  handle_status:close()
-
-  -- Format the SVN info
-  revision = revision:match('%d+') or 'No Rev'
-  status = status ~= '' and '*' or ''
-
-  return string.format('SVN-%s%s', revision, status)
-end
-
 -- ========================================================================== --
 -- ==                               PLUGINS                                == --
 -- ========================================================================== --
@@ -135,10 +117,6 @@ lazy.setup({
         'nvim-treesitter/nvim-treesitter', -- Mandatory
         'nvim-tree/nvim-web-devicons', -- Optional but recommended
     },
-	},
-	{'rktjmp/lush.nvim'},
-	{
-			dir = "~/Projects/LUA/highlight-nvim",
 	},
 	{
 			'sainnhe/everforest',
@@ -200,9 +178,9 @@ require('lualine').setup {
     lualine_c = {
 		{'filename', padding = {left=2, right=8}, color = {gui='bold'}},
 
-		{'progress', padding = {right = 0}}, {'location', padding = {left = 0, right = 2}},
+		{'progress', padding = {right = 1}}, {'location', padding = {left = 0, right = 2}},
 
-		function() return get_svn_info() end, 'branch',
+		 'branch',
 		
 		{ 	function() 
 						local filetype = vim.bo.filetype
