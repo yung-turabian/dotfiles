@@ -46,6 +46,41 @@ if vim.g.neovide then
 		vim.api.nvim_set_current_dir(default_path)
 end
 
+vim.api.nvim_create_augroup('filetypedetect', { clear = true })
+vim.api.nvim_create_autocmd({'BufRead', 'BufNewFile' }, {
+		pattern = '*.he.txt',
+		command = 'set filetype=hebrew-text',
+		group = 'filetypedetect',
+})
+
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'hebrew-text',
+  command = 'setlocal textwidth=0 | setlocal formatoptions=cqt | setlocal spelllang=he | setlocal rightleft | setlocal rightleftcmd | setlocal keymap=hebrew | setlocal revins',
+})
+
+local function get_window_width()
+    local width = vim.api.nvim_win_get_width(0)  -- 0 refers to the current window
+    print("Window width in cursor blocks: " .. width)
+end
+
+-- Define the function to get SVN revision
+function get_svn_info()
+  -- Retrieve the SVN info
+  local handle_rev = io.popen('svn info --show-item revision 2>/dev/null')
+  local revision = handle_rev:read('*a')
+  handle_rev:close()
+
+  local handle_status = io.popen('svn status 2>/dev/null')
+  local status = handle_status:read('*a')
+  handle_status:close()
+
+  -- Format the SVN info
+  revision = revision:match('%d+') or 'No Rev'
+  status = status ~= '' and '*' or ''
+
+  return string.format('SVN-%s%s', revision, status)
+end
+
 -- ========================================================================== --
 -- ==                               PLUGINS                                == --
 -- ========================================================================== --
@@ -151,13 +186,38 @@ require('render-markdown').setup({
 })
 
 -- See :help lualine.txt
-require('lualine').setup({
+require('lualine').setup {
   options = {
-    icons_enabled = true,
-    component_separators = '|',
+    icons_enabled = false,
+    component_separators = '',
     section_separators = '',
+    disabled_filetypes = {},
+    always_divide_middle = true,
   },
-})
+  sections = {
+    lualine_a = {'mode'},
+		lualine_b = {},
+    lualine_c = {
+		{'filename', padding = {left=2, right=8}, color = {gui='bold'}},
+
+		{'progress', padding = {right = 0}}, {'location', padding = {left = 0, right = 2}},
+
+		function() return get_svn_info() end, 'branch',
+		
+		{ 	function() 
+						local filetype = vim.bo.filetype
+						return filetype ~= '' and '(' .. filetype .. ')'  or '(?)' 
+				end, 
+				padding = { left = 2, right = 10 }, 
+		},
+
+		},
+
+    lualine_x = {'encoding'},
+    lualine_y = {},
+    lualine_z = {}
+  },
+}
 
 -- See :help nvim-treesitter-modules
 require('nvim-treesitter.configs').setup({
